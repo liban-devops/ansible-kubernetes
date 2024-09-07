@@ -1,0 +1,7 @@
+- name: Déployer un pod Nginx dans Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Appliquer le fichier de déploiement Nginx dans Kubernetes
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '/path/to/nginx-deployment.yml') }}"
