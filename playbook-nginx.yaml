@@ -1,13 +1,16 @@
-- name: Déployer un pod Nginx dans Kubernetes
+---
+- name: Déployer Nginx dans Kubernetes
   hosts: localhost
   tasks:
-    - name: Télécharger le fichier de déploiement Nginx depuis GitHub
-      get_url:
-        url: 'https://github.com/liban-devops/ansible-kubernetes.git/'  # Remplace par l'URL directe vers le fichier sur GitHub
-        dest: '/tmp/nginx-deployment.yml'
+    - name: Copier le fichier de déploiement nginx dans le serveur Kubernetes
+      copy:
+        src: /home/liban/ansible/playbooks/nginx-deployment.yml  # Le chemin local vers votre fichier
+        dest: /tmp/nginx-deployment.yml  # Le chemin distant dans le serveur Kubernetes
 
     - name: Appliquer le fichier de déploiement Nginx dans Kubernetes
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', '/tmp/nginx-deployment.yml') }}"
+      command: kubectl apply -f /tmp/nginx-deployment.yml
+      register: result
 
+    - name: Vérifier si le déploiement a été appliqué avec succès
+      debug:
+        msg: "{{ result.stdout }}"
