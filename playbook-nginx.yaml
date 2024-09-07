@@ -3,7 +3,7 @@
   tasks:
     - name: Télécharger le fichier de déploiement Nginx depuis GitHub
       get_url:
-        url: 'https://github.com/ton-utilisateur/depot/raw/main/nginx-deployment.yml'  # Remplace par l'URL directe vers le fichier sur GitHub
+        url: 'https://github.com/liban-devops/ansible-kubernetes.git/'  # Remplace par l'URL directe vers le fichier sur GitHub
         dest: '/tmp/nginx-deployment.yml'
 
     - name: Appliquer le fichier de déploiement Nginx dans Kubernetes
