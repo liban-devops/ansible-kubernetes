@@ -1,7 +1,13 @@
 - name: Déployer un pod Nginx dans Kubernetes
   hosts: localhost
   tasks:
+    - name: Télécharger le fichier de déploiement Nginx depuis GitHub
+      get_url:
+        url: 'https://github.com/ton-utilisateur/depot/raw/main/nginx-deployment.yml'  # Remplace par l'URL directe vers le fichier sur GitHub
+        dest: '/tmp/nginx-deployment.yml'
+
     - name: Appliquer le fichier de déploiement Nginx dans Kubernetes
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', '/path/to/nginx-deployment.yml') }}"
+        definition: "{{ lookup('file', '/tmp/nginx-deployment.yml') }}"
+
